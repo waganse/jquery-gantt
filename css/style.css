@@ -1,0 +1,483 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+html {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+body {
+  font-size: 13px;
+}
+
+.gantt-vtheader,
+.gantt-vtheader-item-name,
+.gantt-vtheader-series,
+.gantt-grid,
+.gantt-grid-row-cell {
+  float: left;
+}
+
+.gantt-chart {
+  position: relative;
+  width: auto;
+  height: 500px;
+  border: 1px solid #aaaaaa;
+  overflow: auto;
+}
+
+.gantt-hzheader-wrap {
+  padding-left: 240px;
+  border-top: 1px solid #aaaaaa;
+  border-right: 1px solid #aaaaaa;
+  border-left: 1px solid #aaaaaa;
+}
+
+.gantt-hzheader-container {
+  border-left: 1px solid #aaaaaa;
+  overflow: hidden;
+}
+
+.gantt-counts {
+  overflow: hidden;
+  *zoom: 1;
+}
+.gantt-counts .gantt-count {
+  float: left;
+  border-left: 1px solid #aaaaaa;
+  text-align: center;
+}
+.gantt-counts .gantt-count div {
+  line-height: 20px;
+  color: #777;
+}
+
+.gantt-times {
+  overflow: hidden;
+  *zoom: 1;
+}
+.gantt-times .gantt-time {
+  float: left;
+  border-left: 1px solid #aaaaaa;
+  line-height: 20px;
+  text-align: center;
+  color: #777;
+}
+
+.gantt {
+  position: relative;
+  border: 1px solid #aaaaaa;
+}
+
+.gantt-vtheader {
+  position: relative;
+  width: 240px;
+  overflow: hidden;
+  border-top: 1px solid #aaaaaa;
+  background-color: #fff;
+}
+.gantt-vtheader .gantt-vtheader-item {
+  border-bottom: 1px solid #aaaaaa;
+  overflow: hidden;
+  color: #666;
+}
+.gantt-vtheader .gantt-vtheader-item.last {
+  border-bottom: none;
+}
+.gantt-vtheader .gantt-vtheader-item .gantt-vtheader-item-name {
+  width: 230px;
+  padding: 0 5px;
+  line-height: 16px;
+}
+
+.gantt-grid-container {
+  border-top: 1px solid #aaaaaa;
+  border-left: 1px solid #aaaaaa;
+  position: relative;
+  overflow: hidden;
+  background: #ffffdd;
+}
+.gantt-grid-container .gantt-grid {
+  margin-left: 0;
+}
+
+.gantt-grid-row {
+  overflow: hidden;
+  *zoom: 1;
+  background: #fff;
+}
+.gantt-grid-row.last .gantt-grid-row-cell {
+  border-bottom: none;
+}
+.gantt-grid-row .blocked {
+  background: #881e30;
+}
+.gantt-grid-row .off {
+  background: #7c705a;
+}
+.gantt-grid-row .gantt-grid-row-cell {
+  border-left: 1px solid #aaaaaa;
+  border-bottom: 1px solid #aaaaaa;
+}
+.gantt-grid-row .gantt-grid-row-cell.last {
+  border-right: none;
+}
+
+.gantt-block {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  position: relative;
+  background: #E5ECF9;
+  border: 1px solid #aaaaaa;
+}
+.gantt-block.blocked {
+  background: #c29999;
+}
+.gantt-block .gantt-block-text {
+  position: absolute;
+  height: 12px;
+  font-size: 0.8em;
+  color: #999;
+  padding: 2px 3px;
+}
+
+.gantt-block .ui-resizable-handle.ui-resizable-s {
+  bottom: -0;
+}
+
+.ui-selecting {
+  background: #f2f2f2;
+}
+
+.ui-selected {
+  background: #cccccc;
+}
+
+.btn-adjust {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.now {
+  background: #84E3F0;
+}
+
+.non-biz {
+  background: #463636;
+}
+
+.slider-wrap {
+  overflow: hidden;
+  *zoom: 1;
+}
+
+.slider-adjust {
+  float: left;
+  width: 240px;
+  height: 20px;
+}
+
+.slider {
+  position: relative;
+  float: left;
+  width: 100%;
+  height: 25px;
+}
+.slider div {
+  background: #ddd;
+  height: 3px;
+  border: 1px inset #aaa;
+  position: relative;
+  top: 13px;
+  font-size: 0px;
+}
+.slider span {
+  position: absolute;
+  display: block;
+  width: 15px;
+  height: 18px;
+  border: 1px solid #aaaaaa;
+  background: #f2f2f2;
+}
+
+.sunday .ui-state-default {
+  color: #ff0000;
+}
+
+.saturday .ui-state-default {
+  color: #0000ff;
+}
+
+.off .ui-state-default {
+  color: #aaaaaa;
+}
+
+.holiday .ui-state-default {
+  color: #ff0000;
+}
+
+.modal-container {
+  display: none;
+}
+
+.modal {
+  padding: 0px;
+  color: #333333;
+}
+.modal h2 {
+  padding: 10px 20px;
+  background: #b2b2b2;
+  color: #ffffff;
+  font-weight: bold;
+}
+.modal h3 {
+  margin-bottom: 5px;
+  padding: 5px 0 3px 8px;
+  border-left: 5px solid #999999;
+  font-weight: bold;
+}
+.modal .err {
+  margin-bottom: 10px;
+  padding: 10px 15px 8px;
+  background: #ffe9e9;
+  color: #ff0000;
+}
+.modal .container {
+  padding: 20px;
+}
+.modal .btn-container {
+  padding-bottom: 20px;
+}
+.modal .btn-container a {
+  text-decoration: none;
+  color: #333333;
+}
+.modal ul li {
+  padding: 5px 0;
+}
+.modal ul li.em {
+  color: #ff0000;
+}
+.modal ul li.em span {
+  font-weight: bold;
+}
+.modal ul li.em p {
+  font-weight: bold;
+}
+.modal ul li span {
+  position: relative;
+  display: inline-block;
+  width: 140px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.modal ul li span:after {
+  content: ":";
+  position: absolute;
+  top: -2px;
+  right: 0;
+  display: inline-block;
+}
+.modal ul li p {
+  display: inline-block;
+  width: 445px;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.modal .cancel-type-container {
+  overflow: hidden;
+  *zoom: 1;
+  margin: 20px 0;
+  padding: 3px 10px 2px;
+  border: 1px solid #cccccc;
+}
+.modal .cancel-type-container dt {
+  float: left;
+  margin-right: 30px;
+  line-height: 2;
+  color: #ff0000;
+  font-weight: bold;
+}
+.modal .cancel-type-container dd {
+  float: left;
+  line-height: 2;
+}
+.modal .cancel-type-container dd label {
+  margin: 0 30px 0 3px;
+  vertical-align: middle;
+}
+.modal .main-btn-container {
+  text-align: center;
+}
+.modal .main-btn-container button {
+  border: none;
+  width: 200px;
+  padding: 8px 0;
+  color: #ffffff;
+}
+.modal .em {
+  padding: 10px;
+  color: #ff0000;
+  text-align: center;
+}
+
+#gantt-block-info {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 260px;
+  margin-top: 10px;
+  background: #222222;
+  color: #ffffff;
+  -ms-filter: "alpha( opacity=80 )";
+  filter: alpha(opacity=80);
+  opacity: 0.8;
+  z-index: 999;
+}
+#gantt-block-info:before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: -20px;
+  left: 10px;
+  border: 10px solid transparent;
+  border-bottom: 10px solid #222222;
+}
+#gantt-block-info.right:before {
+  left: auto;
+  right: 10px;
+}
+#gantt-block-info h2 {
+  padding: 10px 15px;
+  border-bottom: 1px solid #aaaaaa;
+}
+#gantt-block-info ul {
+  padding: 15px;
+}
+#gantt-block-info ul li {
+  padding: 5px 0;
+  font-size: 13px;
+}
+#gantt-block-info ul li span {
+  position: relative;
+  display: inline-block;
+  width: 75px;
+  margin-right: 5px;
+  vertical-align: top;
+}
+#gantt-block-info ul li span:after {
+  content: ":";
+  position: absolute;
+  top: -2px;
+  right: 0;
+  display: inline-block;
+}
+#gantt-block-info ul li p {
+  display: inline-block;
+  width: 150px;
+}
+
+#gantt-select-info {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 260px;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+  background: #ffffff;
+  z-index: 101;
+}
+#gantt-select-info .btn-container {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #aaaaaa;
+}
+#gantt-select-info ul {
+  margin-top: 10px;
+}
+#gantt-select-info ul li {
+  margin-top: 5px;
+}
+#gantt-select-info ul strong {
+  font-weight: bold;
+}
+
+#gantt-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 100;
+}

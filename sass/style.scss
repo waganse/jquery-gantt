@@ -1,0 +1,475 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "compass/utilities";
+@import "compass/css3";
+
+$border-color: #aaaaaa;
+
+%gantt-hzheader {
+	overflow: hidden;
+}
+
+body {
+	font-size: 13px;
+}
+
+.gantt-vtheader,
+.gantt-vtheader-item-name,
+.gantt-vtheader-series,
+.gantt-grid,
+.gantt-grid-row-cell {
+	float: left;
+}
+
+.gantt-chart {
+	position: relative;
+	width: auto;
+	height: 500px;
+	border: 1px solid $border-color;
+	overflow: auto;
+}
+
+.gantt-hzheader-wrap {
+	padding-left: 240px;
+	border-top: 1px solid $border-color;
+	border-right: 1px solid $border-color;
+	border-left: 1px solid $border-color;
+}
+
+.gantt-hzheader-container {
+	border-left: 1px solid $border-color;
+	overflow: hidden;
+}
+
+.gantt-counts {
+	@include clearfix();
+
+	.gantt-count {
+		float: left;
+		border-left: 1px solid $border-color;
+		text-align: center;
+		
+		div {
+			line-height: 20px;
+			color: #777;
+		}
+	}
+}
+
+.gantt-times {
+	@include clearfix();
+	
+	.gantt-time {
+		float: left;
+		border-left: 1px solid $border-color;
+		line-height: 20px;
+		text-align: center;
+		color: #777;
+	}
+}
+
+.gantt {
+	position: relative;
+	border: 1px solid $border-color;
+}
+
+.gantt-vtheader {
+	position: relative;
+	width: 240px;
+	overflow: hidden;
+	border-top: 1px solid $border-color;
+	background-color: #fff;
+
+	.gantt-vtheader-item {
+		border-bottom: 1px solid $border-color;
+		overflow: hidden;
+		color: #666;
+		
+		&.last {
+			border-bottom: none;
+		}
+
+		.gantt-vtheader-item-name {
+			width: 230px;
+			padding: 0 5px;
+			line-height: 16px;
+		}
+	}
+}
+
+.gantt-grid-container {
+	border-top: 1px solid $border-color;
+	border-left: 1px solid $border-color;
+	position: relative;
+	overflow: hidden;
+	background: #ffffdd;
+
+	.gantt-grid {
+		margin-left: 0;
+	}
+
+}
+
+.gantt-grid-row {
+	@include clearfix();
+	background: #fff;
+	
+	&.last {
+		.gantt-grid-row-cell {
+			border-bottom: none;
+		}
+	}
+
+	.blocked {
+		background: #881e30;
+	}
+
+	.off {
+		background: #7c705a;
+	}
+
+	.gantt-grid-row-cell {
+		border-left: 1px solid $border-color;
+		border-bottom: 1px solid $border-color;
+		
+		&.last {
+			border-right: none;
+		}
+	}
+}
+
+.gantt-block {
+	@include border-radius();
+	position: relative;
+	background: #E5ECF9;
+	border: 1px solid $border-color;
+
+	&.blocked {
+		background: #c29999;
+	}
+
+	.gantt-block-text {
+		position: absolute;
+		height: 12px;
+		font-size: 0.8em;
+		color: #999;
+		padding: 2px 3px;
+	}
+}
+
+.gantt-block .ui-resizable-handle.ui-resizable-s {
+	bottom: -0;
+}
+
+.ui-selecting {
+	background: #f2f2f2;
+}
+.ui-selected {
+	background: #cccccc;
+}
+
+.btn-adjust {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.now {
+	background: #84E3F0;
+}
+
+.non-biz {
+	background: #463636;
+}
+
+.slider-wrap {
+	@include clearfix();
+}
+
+.slider-adjust {
+	float: left;
+	width: 240px;
+	height: 20px;
+}
+
+.slider {
+	position:relative;
+	float: left;
+	width: 100%;
+	height: 25px;
+
+	div {
+		background: #ddd;
+		height: 3px;
+		border: 1px inset #aaa;
+		position: relative;
+		top: 13px;
+		font-size: 0px;
+	}
+	
+	span {
+		position:absolute;
+		display:block;
+		width: 15px;
+		height: 18px;
+		border: 1px solid $border-color;
+		background: #f2f2f2;
+	}
+}
+
+.sunday .ui-state-default {
+	color: #ff0000;
+}
+
+.saturday .ui-state-default {
+	color: #0000ff;
+}
+
+.off .ui-state-default {
+	color: #aaaaaa;
+}
+
+.holiday .ui-state-default {
+	color: #ff0000;
+}
+
+.modal-container {
+	display: none;
+}
+.modal {
+	padding: 0px;
+	color: #333333;
+	
+	h2 {
+		padding: 10px 20px;
+		background: #b2b2b2;
+		color: #ffffff;
+		font-weight: bold;
+	}
+	
+	h3 {
+		margin-bottom: 5px;
+		padding: 5px 0 3px 8px;
+		border-left: 5px solid #999999;
+		font-weight: bold;
+	}
+
+	.err {
+		margin-bottom: 10px;
+		padding: 10px 15px 8px;
+		background: #ffe9e9;
+		color: #ff0000;
+	}
+
+	.container {
+		padding: 20px;
+	}
+
+	.btn-container {
+		padding-bottom: 20px;
+		
+		a {
+			text-decoration: none;
+			color: #333333;
+		}
+	}
+
+	ul {
+		li {
+			padding: 5px 0;
+			
+			&.em {
+				color: #ff0000;
+
+				span {
+					font-weight: bold;
+				}
+
+				p {
+					font-weight: bold;
+				}
+			}
+
+			span {
+				position: relative;
+				display: inline-block;
+				width: 140px;
+				margin-right: 5px;
+				vertical-align: middle;
+				
+				&:after {
+					content: ":";
+					position: absolute;
+					top: -2px;
+					right: 0;
+					display: inline-block;
+				}
+			}
+
+			p {
+				display: inline-block;
+				width: 445px;
+				vertical-align: middle;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}
+	}
+
+	.cancel-type-container {
+		@include clearfix();
+		margin: 20px 0;
+		padding: 3px 10px 2px;
+		border: 1px solid #cccccc;
+		
+		dt {
+			float: left;
+			margin-right: 30px;
+			line-height: 2;
+			color: #ff0000;
+			font-weight: bold;
+		}
+
+		dd {
+			float: left;
+			line-height: 2;
+
+			label {
+				margin: 0 30px 0 3px;
+				vertical-align: middle;
+			}
+		}
+	}
+
+	.main-btn-container {
+		text-align: center;
+		
+		button {
+			border: none;
+			width: 200px;
+			padding: 8px 0;
+			color: #ffffff;
+		}
+	}
+
+	.em {
+		padding: 10px;
+		color: #ff0000;
+		text-align: center;
+	}
+}
+
+#gantt-block-info {
+	@include border-radius();
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 260px;
+	margin-top: 10px;
+	background: #222222;
+	color: #ffffff;
+	-ms-filter: "alpha( opacity=80 )";
+	filter: alpha( opacity=80 );
+	opacity: 0.8;
+	z-index: 999;
+	
+
+	&:before {
+		content: "";
+		position: absolute;
+		display: block;
+		top: -20px;
+		left: 10px;
+		border: 10px solid transparent;
+		border-bottom: 10px solid #222222; 
+	}
+
+	&.right {
+		&:before {
+			left: auto;
+			right: 10px;
+		}
+	}
+
+	h2 {
+		padding: 10px 15px;
+		border-bottom: 1px solid #aaaaaa;
+	}
+
+	ul {
+		padding: 15px;
+
+		li {
+			padding: 5px 0;
+			font-size: 13px;
+			
+			span {
+				position: relative;
+				display: inline-block;
+				width: 75px;
+				margin-right: 5px;
+				vertical-align: top;
+				
+				&:after {
+					content: ":";
+					position: absolute;
+					top: -2px;
+					right: 0;
+					display: inline-block;
+				}
+			}
+
+			p {
+				display: inline-block;
+				width: 150px;
+			}
+		}
+	}
+}
+
+#gantt-select-info {
+	@include border-radius();
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 260px;
+	padding: 10px;
+	border: 1px solid $border-color;
+	background: #ffffff;
+	z-index: 101;
+	
+	.btn-container {
+		padding-bottom: 10px;
+		border-bottom: 1px solid $border-color;
+	}
+
+	ul {
+		margin-top: 10px;
+		
+		li {
+			margin-top: 5px;
+		}
+
+		strong {
+			font-weight: bold;
+		}
+	}
+}
+
+#gantt-overlay {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	z-index: 100;
+}

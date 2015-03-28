@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery Gantt</title>
+	<link rel="stylesheet" href="js/lib/jquery-ui-1.10.3.custom.min.css" />
+	<link rel="stylesheet" href="js/lib/colorbox.css">
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+	<div style="padding: 20px;">
+		<div>
+			<button class="js-date-prev"><a href="#">&lt;</a></button>
+			<span class="js-date">2013-01-01 (月)</span>
+			<button class="js-date-next"><a href="#">&gt;</a></button>
+			<input type="hidden" id="datepicker" />
+		</div>
+		<button class="js-today">TODAY</button>
+		<button class="js-reset">RESET</button>
+		<button class="js-switch">縮小表示</button>
+		<div class="js-staff-list">
+			<div class="js-staffs">
+				<input type="checkbox" id="staff1" value="1" name="staff" checked="checked"><label for="staff1">staff 1</label>
+				<input type="checkbox" id="staff2" value="2" name="staff" checked="checked"><label for="staff2">staff 2</label>
+				<input type="checkbox" id="staff3" value="3" name="staff" checked="checked"><label for="staff3">staff 3</label>
+			</div>
+			<button class="js-check-all">CHECK ALL</button>
+			<button class="js-check-non">NO CHECK</button>
+			<button class="js-filter">FILTER</button>
+		</div>
+	</div>
+
+
+	<div id="gantt-view"></div>
+
+	<div class="modal-container">
+		<div class="modal"></div>
+	</div>
+
+	<script src="js/lib/jquery-1.9.1.js"></script>
+	<script src="js/lib/jquery-ui-1.10.3.custom.min.js"></script>
+	<script src="js/lib/jquery.colorbox-min.js"></script>
+	<script src="js/lib/underscore-min.js"></script>
+	<script src="js/jquery.ganttView.js"></script>
+	<script src="js/main.js"></script>
+
+	<script src="data/data.js"></script>
+
+
+	<!-- TEMPLATE -->
+	<script type="text/template" id="modal-block-template">
+		<h2>予約内容</h2>
+		<div class="container">
+			<div class="btn-container">
+				<button>予約詳細</button>
+				<button class="js-cancel <%= btnClass %>" <%= disableAttr %>>予約キャンセル</button>
+				<button class="<%= btnClass %>" <%= disableAttr %>>予約変更</button>
+				<button class="<%= btnClass %>" <%= disableAttr %>>来店処理（金額変更）</button>
+				<button class="<%= btnClass %>" <%= disableAttr %>>来店処理（確定）</button>
+				<button>メモ編集</button>
+			</div>
+
+			<% if (onEditFlag) { %>
+			<p class="err">現在、他のユーザーが編集中のため変更処理は行えません。<br>変更処理を行う場合は、しばらくしてからアクセスしてください。</p>
+
+			<% } %>
+
+			<h3>予約情報</h3>
+			<ul>
+				<li><span>予約No</span><p><%= number %></p></li>
+				<li><span>施術時間</span><p><%= startTimeStr %>&#x301C;<%= endTimeStr %></p></li>
+				<li><span>メニュー名</span><p><%= menu %></p></li>
+				<li><span>予約者名</span><p><%= customer %>様</p></li>
+				<li><span>電話番号</span><p><%= tel %></p></li>
+				<li><span>予約ステータス</span><p><%= statusLabel %></p></li>
+				<li><span>支払い方法</span><p><%= paymentLabel %></p></li>
+				<li><span>要望</span><p><%= request %></p></li>
+				<li><span>ご利用金額</span><p><%= price %>円</p></li>
+				<li><span>ポイント利用額</span><p><%= point %>ポイント</p></li>
+				<li><span>事前カード決済金額</span><p><%= pre_card_payment %>円</p></li>
+				<li class="em"><span>請求金額</span><p><%= bill %>円（店頭でのお支払頂く金額）</p></li>
+			</ul>
+		</div>
+	</script>
+
+	<script type="text/template" id="tooltip-block-info-template">
+		<h2>予約情報</h2>
+		<ul>
+			<li><span>施術時間</span><p><%= startTimeStr %>&#x301C;<%= endTimeStr %></p></li>
+			<li><span>メニュー名</span><p><%= menu %></p></li>
+			<li><span>予約者名</span><p><%= customer %>様</p></li>
+		</ul>
+	</script>
+
+	<script type="text/template" id="modal-cancel-template">
+		<h2>予約キャンセル</h2>
+		<div class="container">
+			<h3>予約情報</h3>
+			<ul>
+				<li><span>予約No</span><p><%= number %></p></li>
+				<li><span>施術時間</span><p><%= startTimeStr %>&#x301C;<%= endTimeStr %></p></li>
+				<li><span>メニュー名</span><p><%= menu %></p></li>
+				<li><span>予約者名</span><p><%= customer %>様</p></li>
+				<li><span>電話番号</span><p><%= tel %></p></li>
+				<li><span>予約ステータス</span><p><%= statusLabel %></p></li>
+				<li><span>支払い方法</span><p><%= paymentLabel %></p></li>
+				<li><span>要望</span><p><%= request %></p></li>
+				<li><span>ご利用金額</span><p><%= price %>円</p></li>
+				<li><span>ポイント利用額</span><p><%= point %>ポイント</p></li>
+				<li><span>事前カード決済金額</span><p><%= pre_card_payment %>円</p></li>
+				<li><span>請求金額</span><p><%= bill %>円（店頭でのお支払頂く金額）</p></li>
+			</ul>
+			<dl class="cancel-type-container">
+				<dt>キャンセル区分（必須）</dt>
+				<dd>
+					<input type="radio" name="type" value="1" id="radio-1" checked="checked"><label for="radio-1">店舗都合</label>
+					<input type="radio" name="type" value="2" id="radio-2"><label for="radio-2">お客様都合</label>
+				</dd>
+			</dl>
+			<div class="main-btn-container">
+				<button class="js-exec">予約をキャンセルする</button>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/template" id="tooltip-select-template">
+		<div class="btn-container">
+			<button class="js-book">予約登録</button>
+			<button class="js-block">予約制限</button>
+		</div>
+		<ul>
+			<% _.each(data, function(task, i) { %>
+			<li><%= i + 1 %>.&nbsp;<strong>時間:&nbsp;</strong><%= task.timeFrom %>&#x301C;<%= task.timeTo %>&nbsp;&nbsp;&nbsp;&nbsp;<strong>スタッフ:&nbsp;</strong><%= task.staffName %></li>
+			<% }); %>
+		</ul>
+	</script>
+
+	<script type="text/template" id="modal-reset-template">
+		<h2>残り予約受付可能数リセット</h2>
+		<div class="container">
+			<p class="em">残り予約受付可能数を元の状態にリセットしますか？<br>（すでに入っている予約、予約制限に影響はありません）</p>
+			<div class="main-btn-container">
+				<button class="js-exec">予約受付可能制限数をリセットする</button>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/template" id="modal-err-template">
+		<h2>エラー通知</h2>
+		<div class="container">
+			<p class="em"><%= errMsg %></p>
+		</div>
+	</script>
+	
+	<!-- DATA -->
+	<script>
+		var CONFIG = {
+				START_TIME: 0,
+				END_TIME: 24,
+				SLOT_TIME: 30,
+				START_BIZ_TIME: '0700',
+				END_BIZ_TIME: '2130',
+				COMPACT_VIEW: false,
+				OFF_DATE: 3,
+				HOLIDAYS: [
+					{
+						date: '2013-09-11',
+						desc: '祝日01'
+					},
+					{
+						date: '2013-09-16',
+						desc: '祝日02'
+					},
+					{
+						date: '2013-09-17',
+						desc: '祝日03'
+					}
+				]
+			},
+			BOOKING_STATUS = [
+				{ id: 1, label: '予約（未読）' },
+				{ id: 2, label: '予約（既読）' },
+				{ id: 3, label: '予約来店処理待ち' },
+				{ id: 4, label: '予約来店処理済み' },
+				{ id: 5, label: 'その他予約' }
+			],
+			PAYMENT = [
+				{ id: 1, label: 'カード決済' },
+				{ id: 2, label: '現地決済' }
+			],
+			RESERVE_COUNT_DATA = [
+				{
+					time: '0800',
+					max: 3,
+					available: 2
+				},
+				{
+					time: '0830',
+					max: 4,
+					available: 2
+				},
+				{
+					time: '1430',
+					max: 4,
+					available: 0
+				},
+				{
+					time: '1500',
+					max: 4,
+					available: 2
+				},
+				{
+					time: '1700',
+					max: 6,
+					available: 4
+				},
+				{
+					time: '1330',
+					max: 9,
+					available: 3
+				}
+			];
+	</script>
+</body>
+</html>
